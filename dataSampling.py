@@ -7,7 +7,7 @@ def sampling(origin_path,save_path,size):
     print('start')
     origin_labels_path=origin_path.replace('images','labels')
     save_labels_path=save_path.replace('images','labels')
-    print(origin_labels_path)
+    #print(origin_labels_path)
     files=os.listdir(os.path.join(origin_path,))
     for idx in tqdm(sample(range(0,len(files)),size)):
         file=files[idx]
