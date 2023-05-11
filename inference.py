@@ -32,12 +32,12 @@ from yolov5.models.experimental import attempt_load
 import cv2
 
 IMAGE_SIZE=640
-CONF_THOLD=0.8
+CONF_THOLD=0.3
 LABEL_HIDDEN=False
 CONF_HIDDEN=False
 labels_dict={0:'top',1:'bottom',2:'outer',3:'onepiece'}
 
-image_path='D:\\kfashion\\trainOrigin\\images\\1000010.jpg'
+image_path='.\\testdata\\test4.jpg'
 image=cv2.imread(image_path)
 
 weights_path='.\\yolov5\\runs\\train\\exp10\\weights\\last.pt'
