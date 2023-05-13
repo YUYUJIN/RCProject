@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Test page</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+</head>
+<script async src="https://docs.opencv.org/3.4/opencv.js"></script>
+
+<input type="file" id="inputImage">
+<img id="canvasInput" alt="No Image" />
+<button id="sendButton" onclick="send()" style="visibility: hidden;">Send</button>
+
+<script>
+    let imgElement = document.getElementById('canvasInput');
+    let inputElement = document.getElementById('inputImage');
+    let imageOn=false;
+    inputElement.addEventListener('change', (e) => {
+        imgElement.src = URL.createObjectURL(e.target.files[0]);
+        document.getElementById('sendButton').style.visibility = 'visible';
+        //console.log(e.target.files[0])
+    }, false);
+    imgElement.onload = function() {
+        let src = cv.imread('canvasInput');
+        srcJson={
+                "width":src.cols,
+                "height":src.rows,
+                "bpp":src.channels(),
+                "data":src.data
+        }
+        imageOn=true;
+        src.delete();
+    }
+    
+    function send() {
+        if(imageOn){
+            $.ajax({
+            type: 'POST',
+            url: "http://localhost:5000/upload",
+            dataType: "JSON",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(srcJson),
+            error: function(result){
+                console.log("err!!")
+            },
+            success: function(result){
+                console.log("succsess")
+            }
+            
+        }).then((res)=>element.innerText=res['message']);
+    }
+    }
+</script>
+
+</html>

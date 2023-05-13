@@ -1,0 +1,51 @@
+{
+    "location": {
+        "name": "Seoul",
+        "region": "",
+        "country": "South Korea",
+        "lat": 37.57,
+        "lon": 127.0,
+        "tz_id": "Asia/Seoul",
+        "localtime_epoch": 1683985217,
+        "localtime": "2023-05-13 22:40"
+    },
+    "current": {
+        "last_updated_epoch": 1683984600,
+        "last_updated": "2023-05-13 22:30",
+        "temp_c": 16.0,
+        "temp_f": 60.8,
+        "is_day": 0,
+        "condition": {
+            "text": "Clear",
+            "icon": "//cdn.weatherapi.com/weather/64x64/night/113.png",
+            "code": 1000
+        },
+        "wind_mph": 3.8,
+        "wind_kph": 6.1,
+        "wind_degree": 260,
+        "wind_dir": "W",
+        "pressure_mb": 1012.0,
+        "pressure_in": 29.88,
+        "precip_mm": 0.0,
+        "precip_in": 0.0,
+        "humidity": 72,
+        "cloud": 0,
+        "feelslike_c": 16.0,
+        "feelslike_f": 60.8,
+        "vis_km": 10.0,
+        "vis_miles": 6.0,
+        "uv": 1.0,
+        "gust_mph": 4.3,
+        "gust_kph": 6.8,
+        "air_quality": {
+            "co": 487.29998779296875,
+            "no2": 69.9000015258789,
+            "o3": 17.0,
+            "so2": 12.399999618530273,
+            "pm2_5": 29.5,
+            "pm10": 33.599998474121094,
+            "us-epa-index": 2,
+            "gb-defra-index": 3
+        }
+    }
+}
