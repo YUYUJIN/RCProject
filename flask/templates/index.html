@@ -11,6 +11,24 @@
 <input type="file" id="inputImage">
 <img id="canvasInput" alt="No Image" />
 <button id="sendButton" onclick="send()" style="visibility: hidden;">Send</button>
+<p></p>
+<p>TEMP</p>
+<input type="number" id="temp_c">
+<p>DAY</p>
+<input type="number" id="is_day">
+<p>WIND</p>
+<input type="number" id="wind_kph">
+<p>PRESS</p>
+<input type="number" id="pressure_mb">
+<p>HUMI</p>
+<input type="number" id="humidity">
+<p>CLOUD</p>
+<input type="number" id="cloud">
+<p>FEELS</p>
+<input type="number" id="feelslike_c">
+<p>PRECI</p>
+<input type="number" id="precip_mm">
+<button id="sendButton2" onclick="send2()" style="visibility: hidden;">Send2</button>
 
 <script>
     let imgElement = document.getElementById('canvasInput');
@@ -19,6 +37,7 @@
     inputElement.addEventListener('change', (e) => {
         imgElement.src = URL.createObjectURL(e.target.files[0]);
         document.getElementById('sendButton').style.visibility = 'visible';
+        document.getElementById('sendButton2').style.visibility = 'visible';
         //console.log(e.target.files[0])
     }, false);
     imgElement.onload = function() {
@@ -40,6 +59,33 @@
             $.ajax({
             type: 'POST',
             url: "http://localhost:5000/upload",
+            dataType: "JSON",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(srcJson),
+            error: function(result){
+                console.log("err!!")
+            },
+            success: function(result){
+                console.log("succsess")
+            }
+            
+        }).then((res)=>element.innerText=res['message']);
+    }
+    }
+
+    function send2() {
+        if(imageOn){
+            srcJson['temp_c']=document.getElementById('temp_c').value;
+            srcJson['is_day']=document.getElementById('is_day').value;
+            srcJson['wind_kph']=document.getElementById('wind_kph').value;
+            srcJson['pressure_mb']=document.getElementById('pressure_mb').value;
+            srcJson['humidity']=document.getElementById('humidity').value;
+            srcJson['cloud']=document.getElementById('cloud').value;
+            srcJson['feelslike_c']=document.getElementById('feelslike_c').value;
+            srcJson['precip_mm']=document.getElementById('precip_mm').value;
+            $.ajax({
+            type: 'POST',
+            url: "http://localhost:5000/upload/beggin",
             dataType: "JSON",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(srcJson),

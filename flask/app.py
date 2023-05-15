@@ -154,6 +154,42 @@ def upload():
 
     return jsonify(response),200
 
+@app.route('/upload/beggin',methods=['POST'])
+def uploadB():
+    if request.method=='POST':
+        target=request.get_json()
+
+        # weather api
+        weather_data=[float(target[key]) for key in weather_dict_key]
+
+        # image
+        img=np.array(list(target['data'].values()), np.uint8).reshape((target['height'],target['width'],target['bpp']))
+        img=cv2.cvtColor(img,cv2.COLOR_BGRA2BGR)
+        im,img=preprocess(img,DEVICE)
+        
+        # model run
+        pred=model(im,augment=False)
+        pred=non_max_suppression(pred,conf_thres=model.conf)
+        det=pred[0].to(DEVICE)
+        if len(det):
+            det[:, :4] = scale_boxes(im.shape[2:], det[:, :4], img.shape).round()
+            for i,(*xyxy, conf, cls) in enumerate(reversed(det)):
+                filename=time.strftime("%Y%m%d-%H%M%S-")+str(i)+'.jpg'
+                save_one_box(xyxy, img, file=SAVE_DIR / filename, BGR=False)
+
+                file_path=SAVE_PATH+'/'+filename
+                clss = labels_dict[int(cls)]
+
+                insert_data=[clss,file_path]
+                insert_data+=[weather_data[i]/MAXIUM_VALUE[key] for i,key in enumerate(weather_dict_key)]
+                db.insData(table_name=os.environ.get('TABLENAME'),columns=table_columns,values=insert_data)
+
+        response={
+                'message': 'success'
+        }       
+
+    return jsonify(response),200
+
 if __name__ == '__main__':
     db=Database(host=os.environ.get('HOST'),port=int(os.environ.get('PORT')),user=os.environ.get('USERNAME'),password=os.environ.get('PASSWARD'),database_name=os.environ.get('DATABASENAME'))
 
