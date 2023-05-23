@@ -1,0 +1,17 @@
+{
+    "category":{"0":{"temp_c":12.3,"wind_kph":2.6,"humidity":56.4,"cloud":40,"feelslike_c":12,"precip_mm":20},
+            "1":{"temp_c":24.7,"wind_kph":2.2,"humidity":71.6,"cloud":10,"feelslike_c":30,"precip_mm":50},
+            "2":{"temp_c":14.7,"wind_kph":2.0,"humidity":62.9,"cloud":20,"feelslike_c":14,"precip_mm":10},
+            "3":{"temp_c":-2.2,"wind_kph":2.4,"humidity":56.1,"cloud":10,"feelslike_c":-3,"precip_mm":5}},
+    "SAVE_PATH":"/image",
+    "IMAGE_SIZE":640,
+    "IMAGE_STRIDE":32,
+    "AUTO":true,
+    "CONF_THOLD":0.3,
+    "labels_dict":{"0":"top","1":"bottom","2":"outer","3":"onepiece"},
+    "weather_dict_key":["temp_c","wind_kph","humidity","cloud","feelslike_c","precip_mm"],
+    "table_columns":["CATEGORY","IMAGE","TEMP","WIND","HUMI","CLOUD","FEELS","PRECI"],
+    "MAXIUM_VALUE":{"temp_c":40,"wind_kph":20,"humidity":100,"cloud":100,"feelslike_c":50,"precip_mm":200},
+    "RECOMMEND_THOLD":0.8,
+    "RECOMMEND_COUNT":{"top":5,"bottom":5,"outer":3,"onepiece":2}
+}
